@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model books {
+  id            String          @id @default(cuid())
+  title         String
+  author        String
+  price         Float
+  imageUrl      String
+  description   String
+  isbn          String
+  sourceUrl     String
+  list_books    list_books[]
+  price_history price_history[]
+}
+
+model list_books {
+  id        String   @id @default(cuid())
+  userId    String
+  bookId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  books     books    @relation(fields: [bookId], references: [id])
+  users     users    @relation(fields: [userId], references: [id])
+}
+
+model price_history {
+  id        String   @id @default(cuid())
+  bookId    String
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  books     books    @relation(fields: [bookId], references: [id])
+}
+
+model users {
+  id             String           @id
+  email          String           @unique
+  name           String?
+  password       String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  list_books     list_books[]
+  plan           String           @default("Free")
+  planStartDate  DateTime?
+  planEndDate    DateTime?
+  imported_lists imported_lists[]
+}
+
+model imported_lists {
+  id        String   @id @default(cuid())
+  userId    String
+  url       String
+  watchlist Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     users    @relation(fields: [userId], references: [id])
+}
