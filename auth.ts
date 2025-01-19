@@ -25,7 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         const user = await prisma.users.findFirst({ where: { email: credentials.email } });
-        console.log(user);
+
         if (!user) return null;
         const isValidPassword = await compare(credentials.password.toString(), user.password.toString());
         if (!isValidPassword) {
