@@ -48,7 +48,7 @@ export default function RenderBooks({ list }: { list: any }) {
 					className="object-contain rounded-lg"
 				/>
 				<div className="flex flex-col flex-1">
-					<p className="text-lg font-bold text-[#004e59] line-clamp-2" title={list.title}>{list.title}</p>
+					<p className="text-lg font-bold text-[#004e59] line-clamp-2 h-14" title={list.title}>{list.title}</p>
 					<p className="text-xs text-default-500">{list.author}</p>
 					<div className="flex gap-2 mt-2">
 						<Chip size="sm" className="bg-[#004e59] text-white font-bold">

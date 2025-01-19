@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import DashboardClient from './DashboardClient';
 import { auth } from '@/auth';
 import { PrismaClient } from '@prisma/client';
@@ -64,8 +64,23 @@ interface DashboardProps {
   searchParams?: Record<string, string | undefined>;
 }
 
+
+// generate static pages
+export async function generateStaticParams() {
+  const session = await auth();
+  if (!session?.user?.email) {
+    return [];
+  }
+  const { books } = await getBooks(session, 1);
+  if (!books?.list_books) {
+    return [];
+  }
+  return books.list_books.map((book) => ({ page: book.id }));
+}
+
 export default async function Dashboard({ searchParams }: { searchParams: any }) {
-  const page = parseInt(searchParams?.page || '1', 10);
+  const params = await searchParams
+  const page = parseInt(params?.page || '1', 10);
 
   const session = await auth();
   if (!session?.user?.email) {
@@ -82,5 +97,9 @@ export default async function Dashboard({ searchParams }: { searchParams: any })
     return null;
   }
 
-  return <DashboardClient books={books.list_books} user={user} totalBooks={totalBooks} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DashboardClient books={books.list_books} user={user} totalBooks={totalBooks} />
+    </Suspense>
+  )
 }
