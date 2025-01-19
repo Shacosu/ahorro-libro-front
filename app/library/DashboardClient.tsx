@@ -1,24 +1,16 @@
 "use client"
 
-import React, { useState, useCallback } from 'react';
-import { books, list_books, users } from "@prisma/client";
-import { useSession } from "next-auth/react";
+import React, { useCallback } from 'react';
 import Link from "next/link";
 import RenderBooks from "@/components/dashboard/RenderBooks";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { Modal, ModalContent, ModalHeader, ModalBody, Button, useDisclosure } from "@nextui-org/react";
-import { PlusCircle, Upload, Sparkles, List, BookIcon, ChevronLeft, ChevronRight } from "lucide-react";
-import toast from "react-hot-toast";
+import { Button, useDisclosure } from "@nextui-org/react";
+import { PlusCircle, Upload, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 import AddBookModal from "./components/AddBookModal";
 import ImportListModal from "./components/ImportListModal";
 
-type Books = books & {
-	list_books: list_books[] & {
-		books: books
-	}
-}
 
-export default function DashboardClient({ books: booksList, user, totalBooks }: { books: Books[], user: users, totalBooks: number }) {
+export default function DashboardClient({ books: booksList, user, totalBooks }: { books: any, user: any, totalBooks: number }) {
 	const { isOpen: isAddBookOpen, onOpen: onAddBookOpen, onClose: onAddBookClose } = useDisclosure();
 	const { isOpen: isImportOpen, onOpen: onImportOpen, onClose: onImportClose } = useDisclosure();
 	const router = useRouter();

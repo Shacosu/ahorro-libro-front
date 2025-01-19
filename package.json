@@ -6,6 +6,7 @@
 		"dev": "next dev --turbopack",
 		"build": "next build",
 		"start": "next start",
+		"postinstall": "prisma generate",
 		"lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
 	},
 	"dependencies": {
@@ -63,7 +64,6 @@
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-unused-imports": "4.1.4",
 		"postcss": "8.4.49",
-		"prettier": "3.3.3",
 		"tailwind-variants": "0.1.20",
 		"tailwindcss": "3.4.16",
 		"typescript": "5.6.3"

@@ -29,8 +29,9 @@ const LoginPage = () => {
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-[#004e59]">Email</label>
+            <label htmlFor="email" className="block text-[#004e59]">Email</label>
             <input
+              id="email"
               type="email"
               placeholder="cuenta@ahorrolibro.cl"
               value={email}
@@ -40,8 +41,9 @@ const LoginPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-[#004e59]">Contraseña</label>
+            <label htmlFor="password" className="block text-[#004e59]">Contraseña</label>
             <input
+              id="password"
               type="password"
               placeholder="********"
               value={password}

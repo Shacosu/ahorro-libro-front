@@ -74,7 +74,6 @@ export async function POST(request: Request) {
 			console.log("Suscripción rechazada");
 		}
 	}
-
   // Respondemos con un estado 200 para indicarle que la notificación fue recibida
   return new NextResponse(null, {status: 200});
 }

@@ -12,9 +12,14 @@ interface AddBookModalProps {
   onClose: () => void;
 }
 
+interface User {
+  email: string;
+  userId: string;
+}
+
 export default function AddBookModal({ isOpen, onClose }: AddBookModalProps) {
   const [bookUrl, setBookUrl] = useState("");
-  const session = useSession();
+  const session = useSession() as unknown as { data: { user: User } };
   const router = useRouter();
 
   const addBookToLibrary = async (bookUrl: string) => {
